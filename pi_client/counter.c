@@ -29,7 +29,7 @@ int movementRecord[2048] = {0};
 int distanceRecord[2048] = {0};
 int endOfMovementRecordIndex = 5;
 int endOfDistanceRecordIndex = 5;
-int peopleInRoom = 0;
+int numberOfCars = 0;
 
 int pulseIn(int pin, int level, int timeout);
 
@@ -127,7 +127,7 @@ int main()
             if (trueInLastFive(endOfDistanceRecordIndex, distanceRecord))
             {
                 clearLastFive(endOfDistanceRecordIndex, distanceRecord);
-                peopleInRoom++;
+                numberOfCars++;
             }
             else
             {
@@ -139,9 +139,9 @@ int main()
             if (trueInLastFive(endOfMovementRecordIndex, movementRecord))
             {
                 clearLastFive(endOfMovementRecordIndex, movementRecord);
-                if (peopleInRoom != 0)
+                if (numberOfCars != 0)
                 {
-                    peopleInRoom--;
+                    numberOfCars--;
                 }
             }
             else
@@ -149,8 +149,8 @@ int main()
                 distanceRecord[endOfDistanceRecordIndex] = 1;
             }
         }
-        printf("Number of people in the room is %d\n", peopleInRoom);
-        sprintf(str, "%i", peopleInRoom);
+        printf("Number of cars in the carpark is %d\n", numberOfCars);
+        sprintf(str, "%i", numberOfCars);
 
         printf("Sending to server: %d\n");
         send(sockfd, str, strlen(str), 0);
